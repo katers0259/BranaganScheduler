@@ -1,4 +1,31 @@
 $(document).ready(function () {
+   
+  var hours9 = localStorage.getItem("hour-9");
+  $("#hours-9").val(hours9)
+
+  var hours10 = localStorage.getItem("hour-10");
+  $("#hours-10").val(hours9) 
+  
+  var hours11 = localStorage.getItem("hour-11");
+  $("#hours-11").val(hours11) 
+
+  var hours12 = localStorage.getItem("hour-12");
+  $("#hours-12").val(hours12) 
+
+  var hours13 = localStorage.getItem("hour-13");
+  $("#hours-13").val(hours13) 
+
+  var hours14 = localStorage.getItem("hour-14");
+  $("#hours-14").val(hours14)
+
+  var hours15 = localStorage.getItem("hour-15");
+  $("#hours-15").val(hours15)
+
+  var hours16 = localStorage.getItem("hour-16");
+  $("#hours-16").val(hours16)
+
+  var hours17 = localStorage.getItem("hour-17");
+  $("#hours-17").val(hours17)
     //save buttons
     $('.saveBtn').on('click', function() {
         //gets values
@@ -7,27 +34,37 @@ var time = $(this).parent().attr('id');
 
 localStorage.setItem(time, textSpace);
 
+
 });
+
+//var currentDay = $("#currentDay");
+$("#currentDay").text(moment().format('MMMM Do YYYY'))
 
 function hours() {
     //gets hours
-    var currentTime = moment().hours();
+    currentHour = moment().format('HH')
+    var hourIndex = currentHour - 9;
+    $(".time-block").each(function(timeBox){
+            if(timeBox < hourIndex){
+              $(this).addClass('past').removeClass('present').removeClass('future');
+            }
+            if(timeBox === hourIndex){
+              $(this).addClass('present').removeClass('past').removeClass('future');
+            }
+            if(timeBox > hourIndex){
+              $(this).addClass('future').removeClass('present').removeClass('past');
+            }
+          });
+    
+    
+};
 
-    $('.time-block').each(function() {
-        var hourBlocks = parseInt($(this).attr('id').split('-'[1]);
-        if(hourBlocks < currentTime) {
-            $(this).addClass('past');
-        }
-        else if (hourBlocks === currentTime) {
-            $(this).removeClass('past');
-            $(this).addClass('present');
-        }
-        else {
-            $(this).removeClass('past');
-            $(this).removeClass('present');
-            $(this).addClass('future');
-        }
-    });
-    hours();
-}
-})
+setInterval(hours, 1000);
+
+});
+
+
+
+
+
+
